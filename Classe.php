@@ -4,7 +4,7 @@
     include_once 'alunno.php';
 
 
-    class Classe{
+    class Classe implements jsonSerializable{
 
 
         public $alunni;
@@ -16,6 +16,12 @@
                 new alunno("alex","bot",19),
                 new alunno("mab","iri",20)
             ];
+
+        }
+
+        public function jsonSerialize(){
+
+            return $this->alunni;
 
         }
 
@@ -33,7 +39,7 @@
 
             foreach($this->alunni as $a){
 
-                if($a->getNome() == $nome){
+                if($a->get_name() == $nome){
 
                     return $a;
 
@@ -46,7 +52,17 @@
 
         }
 
+        public function getAlunni(){
 
+            return $this->alunni;
+
+        }
+
+        public function insertAlunno($alunno){
+
+            array_push($this->alunni, $alunno);
+
+        }
 
 
     }

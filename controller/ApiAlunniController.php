@@ -1,20 +1,24 @@
 <?php
+
     use Psr\Http\Message\ResponseInterface as Response;
     use Psr\Http\Message\ServerRequestInterface as Request;
 
-    include_once 'Classe.php';
-    
+    include_once 'alunno.php';
 
-    class AlunniController{
+    class ApiAlunniController{
 
-        public function index(Request $request, Response $response, $args){
+        function index(Request $request, Response $response, $args){
 
             $classe = new Classe();
-            $response->getBody()->write($classe->toString());
-            return $response;
+            
+            $response->getBody()->write(json_encode($classe));
+
+            return $response->withHeader('Content-Type', 'application/json');
+
         }
 
-        public function showAlunno(Request $request, Response $response, $args){
+
+        function showAlunno(Request $request, Response $response, $args){
 
             $classe = new Classe();
 
@@ -27,7 +31,7 @@
 
             else{
 
-                $response->getBody()->write($classe->getAlunno($args['parameter'])->toString());
+                $response->getBody()->write(json_encode($classe->getAlunno($args['parameter'])));
                 return $response->withStatus(200);
 
             }
@@ -37,8 +41,16 @@
 
         }
 
+        
+
+
+
+
 
     }
+
+
+
 
 
 
